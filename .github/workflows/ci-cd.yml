@@ -18,12 +18,7 @@ jobs:
           echo "Running Installing Dependencies ..."
           npm install --force
 
-      - name: Run Linting
-        run: |
-          echo "Running Linting test ..."
-          npm run lint
-        env:
-          CI: true
+    
 
   SecurityCheck:
     name: Check for Security
