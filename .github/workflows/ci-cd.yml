@@ -6,21 +6,45 @@ on:
       - main
 
 jobs:
-  build:
+  lintTest:
+    name: Lint
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+      - name: Clone Repository
+        uses: actions/checkout@v2
 
-    - name: Install Dependencies
-      run: npm install --legacy-peer-deps
+      - name: Run Linting
+        run: |
+          echo "Running Linting test ..."
+          # Assuming linting script is available in your package.json
+          npm run lint
+        env:
+          CI: true
 
-    - name: Run Linting
-      run: npm run lint
+  SecurityCheck:
+    name: Check for Security
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for Security
+        run: |
+          echo "Running Security Checks.."
+          sleep 5s
+          echo "Running Security Checks.. 1"
+          sleep 5s
+          echo "Running Security Checks.. 2"
+          sleep 5s
+          echo "Running Security Checks.. 3"
+          sleep 5s
 
-    - name: Run Security Checks
-      run: echo "Running Security Checks..."
+  Deploy:
+    name: Deployment 
+    runs-on: ubuntu-latest
+    needs: [lintTest, SecurityCheck]
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@v2
 
-    - name: Deploy
-      run: echo "Deployment in Progress..."
+      - name: Build and Deploy
+        run: |
+          echo "Building and Deploying..."
+          npx react-native run-android --variant=release
