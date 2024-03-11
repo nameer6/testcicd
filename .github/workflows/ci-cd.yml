@@ -21,6 +21,7 @@ jobs:
     
   lintTest:
     name: Lint
+    needs: [dependencies_inst]
     runs-on: ubuntu-latest
     steps:
       - name: Clone Repository
