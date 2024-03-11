@@ -1,4 +1,4 @@
-name: cicd
+name: react-native-cicd
 
 on:
   push:
@@ -12,11 +12,6 @@ jobs:
     steps:
       - name: Clone Repository
         uses: actions/checkout@v2
-
-      - name: Install Dependencies
-        run: |
-          echo "Running Installing Dependencies ..."
-          npm install
 
       - name: Run Linting
         run: |
@@ -45,8 +40,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: [lintTest, SecurityCheck]
     steps:
-      - name: Install Dependencies
+      - name: Clone Repository
+        uses: actions/checkout@v2
+
+      - name: Build and Deploy
         run: |
-          echo "Deployment in Progress ..."
-          npm install
-          sleep 5s;
+          echo "Building and Deploying..."
+          npx react-native run-android --variant=release
+        
