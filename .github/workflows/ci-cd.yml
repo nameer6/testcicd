@@ -8,37 +8,24 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Build and Test
-
-    strategy:
-      matrix:
-        node-version: [14]
-        react-native-version: ['0.72.7']
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Cache Node Modules
-        uses: actions/cache@v2
-        with:
-          path: |
-            **/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: '20.9.0'
 
       - name: Install dependencies
         run: npm install
 
-      - name: Run Tests
+      - name: Build and test
         run: npm run test
 
-      - name: Build for Android
-        run: npm run android
+      - name: Build and bundle
+        run: npm run bundle
 
-      - name: Build for iOS
-        run: npm run ios
+      - name: Deploy to device/emulator (example)
+        run: npm run android
