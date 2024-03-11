@@ -1,4 +1,4 @@
-name: CI/CD
+name: Simple.js Pipeline
 
 on:
   push:
@@ -6,26 +6,40 @@ on:
       - main
 
 jobs:
-  build:
+  buildAndTest:
+    name: Build and Test
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - name: Set Up Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: '20.9.0'
+          node-version: 14
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install Dependencies
+        run: |
+          echo "Installing Dependencies ..."
+          npm install
 
-      - name: Build and test
-        run: npm run test
+      - name: Build
+        run: |
+          echo "Building Next.js application ..."
+          npm run build
 
-      - name: Build and bundle
-        run: npm run bundle
+      - name: Run Tests
+        run: |
+          echo "Running Tests ..."
+          npm run test
 
-      - name: Deploy to device/emulator (example)
-        run: npm run android
+  deploy:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: buildAndTest
+    steps:
+      - name: Deploy to Production
+        run: |
+          echo "Deploying to production..."
+ 
