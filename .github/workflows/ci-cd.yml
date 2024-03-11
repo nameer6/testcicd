@@ -6,6 +6,19 @@ on:
       - main
 
 jobs:
+  dependencies_inst:
+    name: dependencies_inst_checkout
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@v2
+
+      - name: dependencies_inst
+        run: |
+          echo "Running Linting test ..."
+          # Assuming linting script is available in your package.json
+          npm install --force
+    
   lintTest:
     name: Lint
     runs-on: ubuntu-latest
