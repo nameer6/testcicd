@@ -16,7 +16,7 @@ jobs:
       - name: Install Dependencies
         run: |
           echo "Running Installing Dependencies ..."
-          npm install
+          npm install --force
 
       - name: Run Linting
         run: |
