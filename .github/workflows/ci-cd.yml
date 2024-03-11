@@ -1,4 +1,4 @@
-name: react-native-cicd
+name: cicd
 
 on:
   push:
