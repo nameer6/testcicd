@@ -1,4 +1,4 @@
-name: nextjs
+name: react-native-cicd
 
 on:
   push:
@@ -39,6 +39,7 @@ jobs:
           sleep 5s
           echo "Running Security Checks.. 3"
           sleep 5s
+
   Deploy:
     name: Deployment 
     runs-on: ubuntu-latest
@@ -47,4 +48,5 @@ jobs:
       - name: Install Dependencies
         run: |
           echo "Deployment in Progress ..."
+          npm install
           sleep 5s;
